@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Database01.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Database01
 {
@@ -26,8 +27,13 @@ namespace Database01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<OtterDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("OtterDbContext")));
+                 options.UseSqlServer(Configuration.GetConnectionString("OtterDbContext")));
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            //    .AddEntityFrameworkStores</*Databáze s uživateli - má vlastní connection string v appsettingách*/>();
             services.AddRazorPages();
+            services.AddRazorPages(opt => {
+                opt.Conventions.AuthorizeFolder("/Index");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +56,7 @@ namespace Database01
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
