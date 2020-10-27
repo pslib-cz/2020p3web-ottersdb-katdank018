@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Database01.Data
 {
-    public class Database01Context : IdentityDbContext
+    public class Database01Context : IdentityDbContext<IdentityUser>
     {
         public Database01Context(DbContextOptions<Database01Context> options)
             : base(options)

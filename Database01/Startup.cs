@@ -27,13 +27,22 @@ namespace Database01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<OtterDbContext>(options =>
-                 options.UseSqlServer(Configuration.GetConnectionString("OtterDbContext")));
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-            //    .AddEntityFrameworkStores</*Databáze s uživateli - má vlastní connection string v appsettingách*/>();
-            services.AddRazorPages();
-            services.AddRazorPages(opt => {
-                opt.Conventions.AuthorizeFolder("/Index");
-            });
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("OtterDbContext")));
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequiredLength = 2;
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<OtterDbContext>();
+
+            services.AddRazorPages(options => {
+                options.Conventions.AuthorizePage("/Index");
+            }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
