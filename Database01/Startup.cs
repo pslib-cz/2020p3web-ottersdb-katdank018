@@ -40,7 +40,7 @@ namespace Database01
             }).AddEntityFrameworkStores<OtterDbContext>();
 
             services.AddRazorPages(options => {
-                options.Conventions.AuthorizePage("/Index");
+                options.Conventions.AuthorizeFolder("/Manage");
             }
             );
         }

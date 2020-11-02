@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database01.Migrations
 {
     [DbContext(typeof(OtterDbContext))]
-    [Migration("20201027092232_OtterDbContext")]
-    partial class OtterDbContext
+    [Migration("20201101181219_M1")]
+    partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

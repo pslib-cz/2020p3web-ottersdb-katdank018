@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Database01.Pages
 {
-    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
@@ -22,7 +21,7 @@ namespace Database01.Pages
             _logger = logger;
             _db = db;
             Otters = db.Otters.ToList();
-        }
+        }   
 
         public void OnGet()
         {
