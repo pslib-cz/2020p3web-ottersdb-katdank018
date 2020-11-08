@@ -41,8 +41,8 @@ namespace Database01
 
             services.AddRazorPages(options => {
                 options.Conventions.AuthorizeFolder("/Manage");
-            }
-            );
+                options.Conventions.AuthorizePage("/Index");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,8 +64,8 @@ namespace Database01
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
