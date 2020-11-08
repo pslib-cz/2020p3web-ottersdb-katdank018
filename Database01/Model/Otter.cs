@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,6 +10,9 @@ namespace Database01.Model
 {
     public class Otter
     {
+        public IdentityUser Founder { get; set; }
+        [ForeignKey("Founder")]
+        public string FounderId { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
         [Key]
