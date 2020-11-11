@@ -1,0 +1,54 @@
+﻿@page
+@model Database01.Pages.DeleteItemModel
+
+@{
+    ViewData["Title"] = "DeleteItem";
+}
+
+<h3>Opravdu chcete smazat tuto vydru?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <div class="col-sm-2">
+            <dt>
+                Jméno
+            </dt>
+            <dt>
+                Barva
+            </dt>
+            <dt>
+                Matka
+            </dt>
+            <dt>
+                Místo
+            </dt>
+            <dt>
+                Nálezce
+            </dt>
+        </div>
+        <div class="col-sm-10">
+            <dd>
+                @Model.Otter.Name
+            </dd>
+            <dd>
+                @Model.Otter.Color
+            </dd>
+            <dd>
+                @Model.Otter.Mother.Name
+            </dd>
+            <dd>
+                @Model.Otter.Place.Name (@Model.Otter.Place.Location.Name)
+            </dd>
+            <dd>
+                @Model.Otter.Founder
+            </dd>
+        </div>
+
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Otter.TattooID" />
+        <input type="submit" value="Smazat" class="btn btn-danger" /> |
+        <a asp-page="./Index">Zpět na výpis</a>
+    </form>
+</div>
