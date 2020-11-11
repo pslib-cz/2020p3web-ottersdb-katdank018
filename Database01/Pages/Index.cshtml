@@ -2,34 +2,30 @@
 @model Database01.Pages.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vydří databáze";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<h1>Vydří databáze</h1>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Name
+                Jméno
             </th>
             <th>
-                Color
+                Barva
             </th>
             <th>
-                Mother
+                Matka
             </th>
             <th>
-                Place
+                Umístění
             </th>
             <th>
-                Location
+                Lokace
             </th>
             <th>
-                Founder
+                Nálezce
             </th>
             <th></th>
         </tr>
@@ -39,7 +35,7 @@
         { 
             <tr>
                 <td>
-                    @(item.Name)
+                    @item.Name
                 </td>
                 <td>
                     @item.Color

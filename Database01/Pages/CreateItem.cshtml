@@ -14,22 +14,22 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Otter.Name" class="control-label">Jméno vydry</label>
+                <label asp-for="Otter.Name" class="control-label">Jméno</label>
                 <input asp-for="Otter.Name" class="form-control" />
                 <span asp-validation-for="Otter.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Otter.Color" class="control-label">Barva vydry</label>
+                <label asp-for="Otter.Color" class="control-label">Barva</label>
                 <input asp-for="Otter.Color" class="form-control" />
                 <span asp-validation-for="Otter.Color" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Otter.MotherId" class="control-label"></label>
+                <label asp-for="Otter.MotherId" class="control-label">Matka</label>
                 <select asp-for="Otter.MotherId" class="form-control" asp-items="Model.Mothers"></select>
                 <span asp-validation-for="Otter.MotherId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Otter.PlaceName" class="control-label"></label>
+                <label asp-for="Otter.PlaceName" class="control-label">Místo nálezu</label>
                 <select asp-for="Otter.PlaceName" class="form-control" asp-items="Model.PlaceNames"></select>
                 <span asp-validation-for="Otter.PlaceName" class="text-danger"></span>
             </div>

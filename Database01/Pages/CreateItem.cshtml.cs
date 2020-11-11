@@ -38,13 +38,14 @@ namespace Database01.Pages
 
             PlaceNames = new List<SelectListItem>();
             Mothers = new List<SelectListItem>();
+            Mothers.Add(new SelectListItem("",null));
             foreach (var item in _context.Places.Include(l => l.Location).AsEnumerable<Place>())
             {
                 PlaceNames.Add(new SelectListItem($"{item.Name} ({item.Location.Name})",$"{item.LocationId};{item.Name}"));
             }
             foreach (var item in _context.Otters.Include(l => l.Mother).AsEnumerable<Otter>())
             {
-                Mothers.Add(new SelectListItem($"{item.Name}", $"{item.MotherId}"));
+                Mothers.Add(new SelectListItem($"{item.Name}", $"{item.TattooID}"));
             }
             return Page();
         }
