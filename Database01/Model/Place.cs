@@ -13,7 +13,6 @@ namespace Database01.Model
         public ICollection<Otter> Otters { get; set; }
         [Required]
         public Location Location { get; set; }
-
         [ForeignKey("Location")]
         public int LocationId { get; set; }
     }

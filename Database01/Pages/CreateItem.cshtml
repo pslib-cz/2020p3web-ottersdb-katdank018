@@ -14,10 +14,6 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Otter.FounderId" class="control-label">Nálezce</label>
-                <input asp-for="Otter.FounderId" class="form-control" asp-items="ViewBag.FounderId" />
-            </div>
-            <div class="form-group">
                 <label asp-for="Otter.Name" class="control-label">Jméno vydry</label>
                 <input asp-for="Otter.Name" class="form-control" />
                 <span asp-validation-for="Otter.Name" class="text-danger"></span>
@@ -28,16 +24,14 @@
                 <span asp-validation-for="Otter.Color" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Otter.MotherId" class="control-label">Matka vydry</label>
-                <select asp-for="Otter.MotherId" class ="form-control" asp-items="ViewBag.MotherId"></select>
+                <label asp-for="Otter.MotherId" class="control-label"></label>
+                <select asp-for="Otter.MotherId" class="form-control" asp-items="Model.Mothers"></select>
+                <span asp-validation-for="Otter.MotherId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Otter.PlaceName" class="control-label">Místo nalezení</label>
-                <input asp-for="Otter.PlaceName" class="form-control" asp-items="ViewBag.PlaceName" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Otter.LocationId" class="control-label">Lokace místa</label>
-                <input asp-for="Otter.LocationId" class ="form-control" />
+                <label asp-for="Otter.PlaceName" class="control-label"></label>
+                <select asp-for="Otter.PlaceName" class="form-control" asp-items="Model.PlaceNames"></select>
+                <span asp-validation-for="Otter.PlaceName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Přidat" class="btn btn-primary" />

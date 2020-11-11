@@ -2,30 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Database01.Model;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Database01.Model;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace Database01.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        private readonly OtterDbContext _db;
-        public readonly List<Otter> Otters;
+        private readonly OtterDbContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger, OtterDbContext db)
+        public IndexModel(OtterDbContext context)
         {
-            _logger = logger;
-            _db = db;
-            Otters = db.Otters.ToList();
-        }   
+            _context = context;
+        }
+
+        public IEnumerable<Otter> Vydra { get; set; }
 
         public void OnGet()
         {
-
+            Vydra = _context.Otters
+                .Include(v => v.Place.Location)
+                .Include(v => v.Mother)
+                .Include(v => v.Place)
+                .Include(v => v.Founder).AsNoTracking().AsEnumerable();
         }
     }
 }

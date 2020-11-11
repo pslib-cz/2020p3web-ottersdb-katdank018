@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Database01.Model;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Database01.Pages
 {
@@ -13,31 +15,53 @@ namespace Database01.Pages
     {
         private readonly OtterDbContext _context;
 
+        public List<SelectListItem> PlaceNames { get; set; }
+        public List<SelectListItem> Locationy { get; set; }
+        public List<SelectListItem> Mothers { get; set; }
+
         public CreateItemModel(Database01.Model.OtterDbContext context)
         {
             _context = context;
         }
 
+        public string GetUserId()
+        {
+            return HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? default;
+        }
+
         public IActionResult OnGet()
         {
-        ViewData["FounderId"] = new SelectList(_context.Users, "Id", "Id");
-        ViewData["MotherId"] = new SelectList(_context.Otters, "TattooID", "TattooID");
-        ViewData["PlaceName"] = new SelectList(_context.Places, "Name", "Name");
+
+            PlaceNames = new List<SelectListItem>();
+            Mothers = new List<SelectListItem>();
+            foreach (var item in _context.Places.Include(l => l.Location).AsEnumerable<Place>())
+            {
+                PlaceNames.Add(new SelectListItem($"{item.Name} ({item.Location.Name})",$"{item.LocationId};{item.Name}"));
+            }
+            foreach (var item in _context.Otters.Include(l => l.Mother).AsEnumerable<Otter>())
+            {
+                Mothers.Add(new SelectListItem($"{item.Mother}", $"{item.MotherId}"));
+            }
+            foreach (var item in _context.Locations)
+            {
+                Locationy.Add(new SelectListItem(item.Name, item.LocationID.ToString()));
+            }
             return Page();
         }
 
         [BindProperty]
         public Otter Otter { get; set; }
+        [BindProperty]
+        public Place Place { get; set; }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            Otter.FounderId = GetUserId();
 
+            string[] data;
+            data = Otter.PlaceName.Split(';');
+            Otter.LocationId = int.Parse(data[0]);
+            Otter.PlaceName = data[1];
             _context.Otters.Add(Otter);
             await _context.SaveChangesAsync();
 

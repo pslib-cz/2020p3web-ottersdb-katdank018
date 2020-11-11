@@ -1,14 +1,67 @@
 ﻿@page
-@model IndexModel
+@model Database01.Pages.IndexModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <ul>
-        @foreach (var c in Model.Otters)
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Color
+            </th>
+            <th>
+                Mother
+            </th>
+            <th>
+                Place
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Founder
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Vydra)
         {
-        <li>@c.Name</li>
+            <tr>
+                <td>
+                    @(item.Name)
+                </td>
+                <td>
+                    @item.Color
+                </td>
+                <td>
+                    @(item.Mother?.Name ?? "neznámá")
+                </td>
+                <td>
+                    @item.PlaceName
+                </td>
+                <td>
+                    @item.Place.Location.Name
+                </td>
+                <td>
+                    @item.Founder
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.TattooID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.TattooID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.TattooID">Delete</a>
+                </td>
+            </tr>
         }
-    </ul>
-</div>
+    </tbody>
+</table>
