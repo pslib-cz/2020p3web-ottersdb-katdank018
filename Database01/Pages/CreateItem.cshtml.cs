@@ -15,8 +15,12 @@ namespace Database01.Pages
     {
         private readonly OtterDbContext _context;
 
+        [BindProperty]
+        public Otter Otter { get; set; }
+        [BindProperty]
+        public Place Place { get; set; }
+
         public List<SelectListItem> PlaceNames { get; set; }
-        public List<SelectListItem> Locationy { get; set; }
         public List<SelectListItem> Mothers { get; set; }
 
         public CreateItemModel(Database01.Model.OtterDbContext context)
@@ -40,19 +44,10 @@ namespace Database01.Pages
             }
             foreach (var item in _context.Otters.Include(l => l.Mother).AsEnumerable<Otter>())
             {
-                Mothers.Add(new SelectListItem($"{item.Mother}", $"{item.MotherId}"));
-            }
-            foreach (var item in _context.Locations)
-            {
-                Locationy.Add(new SelectListItem(item.Name, item.LocationID.ToString()));
+                Mothers.Add(new SelectListItem($"{item.Name}", $"{item.MotherId}"));
             }
             return Page();
         }
-
-        [BindProperty]
-        public Otter Otter { get; set; }
-        [BindProperty]
-        public Place Place { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
