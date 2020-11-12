@@ -93,7 +93,7 @@ namespace Database01.Pages
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Index");
         }
 
         private bool VydraExists(int? id)

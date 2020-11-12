@@ -18,6 +18,11 @@ namespace Database01.Pages
             _context = context;
         }
 
+        public string GetUserId()
+        {
+            return HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? default;
+        }
+
         [BindProperty]
         public Otter Otter { get; set; }
 
@@ -34,13 +39,19 @@ namespace Database01.Pages
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             Otter = _context.Otters.Find(id);
-            if (Otter != null)
+            if (GetUserId() == Otter.FounderId)
             {
-                _context.Otters.Remove(Otter);
-                await _context.SaveChangesAsync();
+                if (Otter != null)
+                {
+                    _context.Otters.Remove(Otter);
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToPage("../Index");
             }
-
-            return RedirectToPage("./Index");
+            else
+            {
+                return RedirectToPage("./Denied");
+            }
         }
     }
 }

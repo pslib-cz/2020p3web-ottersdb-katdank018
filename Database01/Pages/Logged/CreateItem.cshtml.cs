@@ -61,7 +61,7 @@ namespace Database01.Pages
             _context.Otters.Add(Otter);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Index");
         }
     }
 }
