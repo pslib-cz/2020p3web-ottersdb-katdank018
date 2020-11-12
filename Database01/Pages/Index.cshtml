@@ -20,27 +20,27 @@
     </thead>
     <tbody>
         @foreach (var item in Model.Vydra)
-        { 
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Color</td>
-            <td>@(item.Mother?.Name ?? "Neznámá")</td>
-            <td>@item.PlaceName</td>
-            <td>@item.Place.Location.Name</td>
-            @if (item.Founder == null)
-            {
-                <td>Neznámý</td>
-            }
-            else
-            {
-                <td>@item.Founder</td>
-            }
-            <td>
-                <a asp-page="./Logged/EditItem" asp-route-id="@item.TattooID">Edit</a> |
-                <a asp-page="./Logged/DetailsofItem" asp-route-id="@item.TattooID">Details</a> |
-                <a asp-page="./Logged/DeleteItem" asp-route-id="@item.TattooID">Odebrat</a>
-            </td>
-        </tr>
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Color</td>
+                <td>@(item.Mother?.Name ?? "Neznámá")</td>
+                <td>@item.PlaceName</td>
+                <td>@item.Place.Location.Name</td>
+                @if (item.Founder == null)
+                {
+                    <td>Neznámý</td>
+                }
+                else
+                {
+                    <td>@item.Founder</td>
+                }
+                <td>
+                    <a asp-page="./Logged/EditItem" asp-route-id="@item.TattooID">Upravit</a> |
+                    <a asp-page="./Logged/DetailsofItem" asp-route-id="@item.TattooID">Podrobnosti</a> |
+                    <a asp-page="./Logged/DeleteItem" asp-route-id="@item.TattooID">Odebrat</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

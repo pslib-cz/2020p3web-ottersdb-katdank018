@@ -20,10 +20,6 @@ namespace Database01.Pages
         {
             _context = context;
         }
-        public string GetUserId()
-        {
-            return HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? default;
-        }
 
 
         [BindProperty]
@@ -70,7 +66,6 @@ namespace Database01.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            otter.FounderId = GetUserId();
             string[] data;
             data = otter.PlaceName.Split(';');
             otter.LocationId = int.Parse(data[0]);

@@ -4,14 +4,16 @@ using Database01.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Database01.Migrations
 {
     [DbContext(typeof(OtterDbContext))]
-    partial class OtterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201112184755_D")]
+    partial class D
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
