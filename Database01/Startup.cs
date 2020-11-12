@@ -42,6 +42,7 @@ namespace Database01
             services.AddRazorPages(options => {
                 options.Conventions.AuthorizeFolder("/Manage");
                 options.Conventions.AuthorizePage("/Index");
+                options.Conventions.AuthorizeFolder("/Logged");
             });
         }
 
