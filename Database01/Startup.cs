@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Database01.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Database01.Services;
 
 namespace Database01
 {
@@ -44,6 +46,8 @@ namespace Database01
                 options.Conventions.AuthorizePage("/Index");
                 options.Conventions.AuthorizeFolder("/Logged");
             });
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
