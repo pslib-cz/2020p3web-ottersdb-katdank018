@@ -43,6 +43,13 @@ namespace Database01.Pages
             {
                 if (Otter != null)
                 {
+                    //foreach (var item in _context.Otters)
+                    //{
+                    //    if (_context.Otters.Find(Otter.Mother.MotherId))
+                    //    {
+
+                    //    }
+                    //}
                     _context.Otters.Remove(Otter);
                     await _context.SaveChangesAsync();
                 }
