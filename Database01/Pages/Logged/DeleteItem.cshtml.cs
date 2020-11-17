@@ -39,7 +39,7 @@ namespace Database01.Pages
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             Otter = _context.Otters.Find(id);
-            if (GetUserId() == Otter.FounderId)
+            if (GetUserId() == Otter.FounderId || Otter.FounderId == null)
             {
                 if (Otter != null)
                 {
