@@ -38,8 +38,7 @@ namespace Database01.Pages
             otter = await _context.Otters
                 .Include(v => v.Place.Location)
                 .Include(v => v.Mother)
-                .Include(v => v.Place)
-                .Include(v => v.Founder).AsNoTracking().FirstOrDefaultAsync(m => m.TattooID == id);
+                .Include(v => v.Place).AsNoTracking().FirstOrDefaultAsync(m => m.TattooID == id);
 
 
             if (otter == null)

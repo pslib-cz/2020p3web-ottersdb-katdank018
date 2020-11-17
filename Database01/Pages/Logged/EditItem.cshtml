@@ -21,7 +21,6 @@
                 <input asp-for="otter.Color" class="form-control" />
                 <span asp-validation-for="otter.Color" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="otter.TattooID" />
             <div class="form-group">
                 <label asp-for="otter.MotherId" class="control-label">Matka</label>
                 <select asp-for="otter.MotherId" class="form-control" asp-items="Model.Mothers"></select>
@@ -32,6 +31,8 @@
                 <select asp-for="otter.PlaceName" class="form-control" asp-items="Model.PlaceNames"></select>
                 <span asp-validation-for="otter.PlaceName" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="otter.FounderId" class="form-control" />
+            <input type="hidden" asp-for="otter.TattooID" />
             <div class="form-group">
                 <input type="submit" value="Uložit" class="btn btn-primary" />
             </div>
