@@ -1,0 +1,38 @@
+﻿@page
+@model Database01.Pages.EditLocationModel
+
+@{
+    ViewData["Title"] = "Úprava lokace";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="location.Name" class="control-label">Název lokace</label>
+                <input asp-for="location.Name" class="form-control" />
+                <span asp-validation-for="location.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="location.Area" class="control-label">Označení lokace</label>
+                <input asp-for="location.Area" class="form-control" />
+                <span asp-validation-for="location.Area" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="location.LocationID" />
+            <div class="form-group">
+                <input type="submit" value="Uložit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./LocationIndex">Zpět na výpis</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

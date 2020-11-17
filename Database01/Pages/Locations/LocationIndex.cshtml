@@ -1,0 +1,31 @@
+﻿@page
+@model Database01.Pages.LocationIndexModel
+
+@{
+    ViewData["Title"] = "Databáze lokací";
+}
+
+    <h1>@ViewData["Title"]</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Název</th>
+            <th>Označení</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.location)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Area</td>
+                <td>
+                    <a asp-page="./EditLocation" asp-route-id="@item.LocationID">Upravit</a> |
+                    <a asp-page="./DetailsofLocation" asp-route-id="@item.LocationID">Podrobnosti</a> |
+                    <a asp-page="./DeleteLocation" asp-route-id="@item.LocationID">Odebrat</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

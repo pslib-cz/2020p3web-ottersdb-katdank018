@@ -1,0 +1,39 @@
+﻿@page
+@model Database01.Pages.CreatePlaceModel
+
+@{
+    ViewData["Title"] = "Přidání nového místa";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+    <h1>@ViewData["Title"]</h1>
+<p></p>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="place.Name" class="control-label">Název místa</label>
+                <input asp-for="place.Name" class="form-control" />
+                <span asp-validation-for="place.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="place.LocationId" class="control-label">Umístění</label>
+                <select asp-for="place.LocationId" class="form-control" asp-items="Model.Locations"></select>
+                <span asp-validation-for="place.LocationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Přidat" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./PlacesIndex">Zpět na výpis</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

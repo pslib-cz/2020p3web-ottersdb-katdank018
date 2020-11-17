@@ -1,0 +1,26 @@
+﻿@page
+@model Database01.Pages.DeleteLocationModel
+
+@{
+    ViewData["Title"] = "Smazání lokace";
+}
+<h3>Opravdu chcete smazat tuto vydru?</h3>
+<div>
+    <hr />
+    <div class="row">
+        <dl class="col-sm-2 odsaz">
+            <dt>Název</dt>
+            <dt>Označení</dt>
+        </dl>
+        <dl class="col-sm-10">
+            <dd>@Model.location.Name</dd>
+            <dd>@Model.location.Area</dd>
+        </dl>
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="location.LocationID" />
+        <input type="submit" value="Smazat" class="btn btn-danger" /> |
+        <a asp-page="./LocationIndex">Zpět na výpis</a>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+﻿@page
+@model Database01.Pages.EditPlaceModel
+
+@{
+    ViewData["Title"] = "Úprava místa";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="PlaceData.OriginalName" value="@Model.place.Name" />
+            <input type="hidden" asp-for="PlaceData.OriginalLocationId" value="@Model.place.LocationId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PlaceData.Name" class="control-label">Jméno místa</label>
+                <input asp-for="PlaceData.Name" value="@Model.place.Name" class="form-control" />
+                <span asp-validation-for="PlaceData.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlaceData.LocationId" class="control-label">Název lokace</label>
+                <select asp-for="PlaceData.LocationId" class="form-control" asp-items="Model.LocationName"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Uložit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./PlaceIndex">Zpět na výpis</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
