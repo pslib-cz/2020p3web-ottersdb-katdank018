@@ -7,16 +7,16 @@
 
 <div>
     <hr />
-    <dl class="row">
-        <div class="col-sm-2 odsaz">
+    <div class="row">
+        <dl class="col-sm-2 odsaz">
             <dt>ID</dt>
             <dt>Jméno</dt>
             <dt>Matka</dt>
             <dt>Barva</dt>
             <dt>Místo</dt>
             <dt>Nálezce</dt>
-        </div>
-        <div class="col-sm-10">
+        </dl>
+        <dl class="col-sm-10">
             <dd>@Model.Otter.TattooID</dd>
             <dd>@Model.Otter.Name</dd>
             <dd>@(Model.Otter.Mother?.Name ?? "Neznámá")</dd>
@@ -30,12 +30,10 @@
             {
                 <dd>@Model.Otter.Founder</dd>
             }
-        </div>
-    </dl>
+        </dl>
+    </div>
 </div>
 <div>
     <a asp-page="./EditItem" asp-route-id="@Model.Otter.TattooID">Upravit</a> |
     <a asp-page="../Index">Zpět na výpis</a>
 </div>
-
-<style>.odsaz > * {padding-bottom: 0.5rem;}</style>

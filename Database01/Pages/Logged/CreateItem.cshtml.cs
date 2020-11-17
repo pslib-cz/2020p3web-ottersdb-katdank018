@@ -19,7 +19,6 @@ namespace Database01.Pages
         public Otter Otter { get; set; }
         [BindProperty]
         public Place Place { get; set; }
-        public Otter Mama { get; set; }
 
         public List<SelectListItem> PlaceNames { get; set; }
         public List<SelectListItem> Mothers { get; set; }
@@ -54,8 +53,7 @@ namespace Database01.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             Otter.FounderId = GetUserId();
-            Mama.TattooID = Otter.MotherId;
-            Mama.Children.Add(Otter);
+
             string[] data;
             data = Otter.PlaceName.Split(';');
             Otter.LocationId = int.Parse(data[0]);
