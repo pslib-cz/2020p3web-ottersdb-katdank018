@@ -5,7 +5,7 @@
     ViewData["Title"] = "Vydří databáze";
 }
 
-    <h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Title"]</h1>
 <table class="table">
     <thead>
         <tr>
@@ -15,7 +15,7 @@
             <th>Umístění</th>
             <th>Lokace</th>
             <th>Nálezce</th>
-            <th></th>
+            <th class="text-center font-weight-normal"><a asp-page="/Logged/CreateItem">Přidat nově nalezenou vydru</a></th>
         </tr>
     </thead>
     <tbody>
@@ -35,7 +35,7 @@
                 {
                     <td>@item.Founder</td>
                 }
-                <td>
+                <td class="text-center">
                     <a asp-page="./Logged/EditItem" asp-route-id="@item.TattooID">Upravit</a> |
                     <a asp-page="./Logged/DetailsofItem" asp-route-id="@item.TattooID">Podrobnosti</a> |
                     <a asp-page="./Logged/DeleteItem" asp-route-id="@item.TattooID">Odebrat</a>

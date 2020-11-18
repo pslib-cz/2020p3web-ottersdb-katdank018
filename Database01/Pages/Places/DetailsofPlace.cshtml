@@ -1,0 +1,26 @@
+﻿@page
+@model Database01.Pages.DetailsofPlaceModel
+@{
+    ViewData["Title"] = "Detaily místa";
+}
+<h1>@ViewData["Title"] @Model.place.Name</h1>
+
+<div>
+    <hr />
+    <div class="row">
+        <dl class="col-sm-2 odsaz">
+            <dt>Jméno</dt>
+            <dt>Lokace</dt>
+            <dt>ID Lokace</dt>
+        </dl>
+        <dl class="col-sm-10">
+            <dd>@Model.place.Name</dd>
+            <dd>@Model.place.Location.Name</dd>
+            <dd>@Model.place.LocationId</dd>
+        </dl>
+    </div>
+</div>
+<div>
+    <a asp-page="./EditPlace" asp-route-id="@Model.place.Name" asp-route-idLoc="@Model.place.LocationId">Upravit</a> |
+    <a asp-page="./PlacesIndex">Zpět na výpis</a>
+</div>

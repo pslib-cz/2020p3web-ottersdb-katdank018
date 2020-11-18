@@ -16,7 +16,7 @@ namespace Database01.Pages
         private readonly OtterDbContext _context;
         [BindProperty]
         public Location location { get; set; }
-        public CreateLocationModel(Database01.Model.OtterDbContext context)
+        public CreateLocationModel(OtterDbContext context)
         {
             _context = context;
         }

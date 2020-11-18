@@ -5,13 +5,13 @@
     ViewData["Title"] = "Databáze lokací";
 }
 
-    <h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Title"]</h1>
 <table class="table">
     <thead>
         <tr>
             <th>Název</th>
             <th>Označení</th>
-            <th></th>
+            <th class="text-center font-weight-normal"><a asp-page="./CreateLocation">Přidat lokaci</a></th>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
             <tr>
                 <td>@item.Name</td>
                 <td>@item.Area</td>
-                <td>
+                <td class="text-center">
                     <a asp-page="./EditLocation" asp-route-id="@item.LocationID">Upravit</a> |
                     <a asp-page="./DetailsofLocation" asp-route-id="@item.LocationID">Podrobnosti</a> |
                     <a asp-page="./DeleteLocation" asp-route-id="@item.LocationID">Odebrat</a>

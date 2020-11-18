@@ -1,78 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Database01.Model;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Database01.Pages
 {
     public class EditPlaceModel : PageModel
     {
         private readonly OtterDbContext _context;
-        [BindProperty]
-        public Place place { get; set; }
+
         public EditPlaceModel(OtterDbContext context)
         {
             _context = context;
         }
+
+        [BindProperty]
+        public Place Edit { get; set; }
+        [BindProperty]
+        public Place place { get; set; }
+
         public List<SelectListItem> Locations { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id, int? idLoc)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            place = await _context.Places.Include(v => v.Location).AsNoTracking().FirstOrDefaultAsync(m => m.LocationId == id);
-
-
-            if (place == null)
-            {
-                return NotFound();
-            }
+            place = await _context.Places
+                .Include(p => p.Location).AsNoTracking().FirstOrDefaultAsync(m => m.Name == id && m.LocationId == idLoc);
 
             Locations = new List<SelectListItem>();
             foreach (var item in _context.Locations)
             {
                 Locations.Add(new SelectListItem($"{item.Name}", $"{item.LocationID}"));
             }
-
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            _context.Attach(place).State = EntityState.Modified;
+            Place NewPlace = place;
+            _context.Places.Remove(place);
+            await _context.SaveChangesAsync();
+            NewPlace.LocationId = Edit.LocationId;
+            NewPlace.Name = Edit.Name;
+            _context.Places.Add(NewPlace);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PlaceExists(place.LocationId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _context.SaveChangesAsync();
             return RedirectToPage("./PlacesIndex");
-        }
-
-        private bool PlaceExists(int? id)
-        {
-            return _context.Places.Any(e => e.LocationId == id);
         }
     }
 }

@@ -23,11 +23,6 @@ namespace Database01.Pages
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             location = await _context.Locations.FirstOrDefaultAsync(m => m.LocationID == id);
-
-            if (location == null)
-            {
-                return NotFound();
-            }
             return Page();
         }
     }

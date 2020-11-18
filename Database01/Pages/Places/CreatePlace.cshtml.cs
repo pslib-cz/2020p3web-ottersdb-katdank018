@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Database01.Model;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Database01.Pages
 {
@@ -18,7 +16,7 @@ namespace Database01.Pages
         public Place place { get; set; }
 
         public List<SelectListItem> Locations { get; set; }
-        public CreatePlaceModel(Database01.Model.OtterDbContext context)
+        public CreatePlaceModel(OtterDbContext context)
         {
             _context = context;
         }
@@ -37,7 +35,6 @@ namespace Database01.Pages
         {
             _context.Places.Add(place);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./PlacesIndex");
         }
     }

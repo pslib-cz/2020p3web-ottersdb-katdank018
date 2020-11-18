@@ -9,21 +9,21 @@ using Database01.Model;
 
 namespace Database01.Pages
 {
-    public class DeleteLocationModel : PageModel
+    public class DeletePlaceModel : PageModel
     {
         private readonly OtterDbContext _context;
 
-        public DeleteLocationModel(OtterDbContext context)
+        public DeletePlaceModel(OtterDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Location location { get; set; }
+        public Place place { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id, int? idLoc)
         {
-            location = await _context.Locations.FirstOrDefaultAsync(m => m.LocationID == id);
+            place = await _context.Places.Include(p => p.Location).AsNoTracking().FirstOrDefaultAsync(m => m.Name == id && m.LocationId == idLoc);
             return Page();
         }
 
@@ -31,14 +31,16 @@ namespace Database01.Pages
         {
             foreach (var item in _context.Otters)
             {
-                if (item.LocationId == location.LocationID)
+                if (item.PlaceName == place.Name && item.LocationId == place.LocationId)
                 {
                     return RedirectToPage("../Logged/Denied");
                 }
             }
-            _context.Locations.Remove(location);
+
+            _context.Places.Remove(place);
             await _context.SaveChangesAsync();
-            return RedirectToPage("./LocationIndex");
+
+            return RedirectToPage("./PlacesIndex");
 
         }
     }

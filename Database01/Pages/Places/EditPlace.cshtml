@@ -10,17 +10,17 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <input type="hidden" asp-for="PlaceData.OriginalName" value="@Model.place.Name" />
-            <input type="hidden" asp-for="PlaceData.OriginalLocationId" value="@Model.place.LocationId" />
+            <input type="hidden" asp-for="place.Name" value="@Model.place.Name" />
+            <input type="hidden" asp-for="place.LocationId" value="@Model.place.LocationId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PlaceData.Name" class="control-label">Jméno místa</label>
-                <input asp-for="PlaceData.Name" value="@Model.place.Name" class="form-control" />
-                <span asp-validation-for="PlaceData.Name" class="text-danger"></span>
+                <label asp-for="Edit.Name" class="control-label">Jméno místa</label>
+                <input asp-for="Edit.Name" value="@Model.place.Name" class="form-control" />
+                <span asp-validation-for="Edit.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PlaceData.LocationId" class="control-label">Název lokace</label>
-                <select asp-for="PlaceData.LocationId" class="form-control" asp-items="Model.LocationName"></select>
+                <label asp-for="Edit.LocationId" class="control-label">Název lokace</label>
+                <select asp-for="Edit.LocationId" class="form-control" asp-items="Model.Locations"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Uložit" class="btn btn-primary" />
@@ -30,7 +30,7 @@
 </div>
 
 <div>
-    <a asp-page="./PlaceIndex">Zpět na výpis</a>
+    <a asp-page="./PlacesIndex">Zpět na výpis</a>
 </div>
 
 @section Scripts {

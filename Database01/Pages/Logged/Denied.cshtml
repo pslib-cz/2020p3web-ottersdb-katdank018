@@ -1,12 +1,12 @@
 ﻿@page
 @model Database01.Pages.Logged.DeniedModel
 @{
-    ViewData["Title"] = "Přístup odepřen";
+    ViewData["Title"] = "Chyba";
 }
 
 <header>
     <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">Na toto nemáte oprávnění.</p>
+    <p class="text-danger">Tuto akci není možné provést.</p>
 </header>
 <div>
     <a asp-page="../Index">Zpět na výpis</a>
