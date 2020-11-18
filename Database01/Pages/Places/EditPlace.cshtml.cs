@@ -39,7 +39,18 @@ namespace Database01.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             Place NewPlace = place;
+
+            foreach (var item in _context.Otters)
+            {
+                if (item.PlaceName == place.Name && item.LocationId == place.LocationId)
+                {
+                    item.Place = Edit;
+
+                }
+            }
+
             _context.Places.Remove(place);
+
             await _context.SaveChangesAsync();
             NewPlace.LocationId = Edit.LocationId;
             NewPlace.Name = Edit.Name;
