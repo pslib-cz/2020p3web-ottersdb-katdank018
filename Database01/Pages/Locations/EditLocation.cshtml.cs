@@ -28,7 +28,7 @@ namespace Database01.Pages
             await _context.SaveChangesAsync();
 
 
-            return RedirectToPage("./LocationIndex");
+            return RedirectToPage("../LocationIndex");
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Database01.Pages
             _context.Locations.Add(location);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./LocationIndex");
+            return RedirectToPage("../LocationIndex");
         }
     }
 }

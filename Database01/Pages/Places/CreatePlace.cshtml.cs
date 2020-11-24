@@ -35,7 +35,7 @@ namespace Database01.Pages
         {
             _context.Places.Add(place);
             await _context.SaveChangesAsync();
-            return RedirectToPage("./PlacesIndex");
+            return RedirectToPage("../PlacesIndex");
         }
     }
 }

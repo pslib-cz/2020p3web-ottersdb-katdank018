@@ -11,7 +11,7 @@
         <tr>
             <th>Název</th>
             <th>Označení</th>
-            <th class="text-center font-weight-normal"><a asp-page="./CreateLocation">Přidat lokaci</a></th>
+            <th class="text-center font-weight-normal"><a asp-page="./Locations/CreateLocation">Přidat lokaci</a></th>
         </tr>
     </thead>
     <tbody>
@@ -21,9 +21,9 @@
                 <td>@item.Name</td>
                 <td>@item.Area</td>
                 <td class="text-center">
-                    <a asp-page="./EditLocation" asp-route-id="@item.LocationID">Upravit</a> |
-                    <a asp-page="./DetailsofLocation" asp-route-id="@item.LocationID">Podrobnosti</a> |
-                    <a asp-page="./DeleteLocation" asp-route-id="@item.LocationID">Odebrat</a>
+                    <a asp-page="./Locations/EditLocation" asp-route-id="@item.LocationID">Upravit</a> |
+                    <a asp-page="./Locations/DetailsofLocation" asp-route-id="@item.LocationID">Podrobnosti</a> |
+                    <a asp-page="./Locations/DeleteLocation" asp-route-id="@item.LocationID">Odebrat</a>
                 </td>
             </tr>
         }

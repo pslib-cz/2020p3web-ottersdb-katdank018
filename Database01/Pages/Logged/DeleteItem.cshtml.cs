@@ -25,6 +25,8 @@ namespace Database01.Pages
 
         [BindProperty]
         public Otter Otter { get; set; }
+        public string Alert { get; set; }
+        public string Denied { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,6 +35,15 @@ namespace Database01.Pages
                 .Include(o => o.Mother)
                 .Include(o => o.Place.Location)
                 .Include(o => o.Place).FirstOrDefaultAsync(m => m.TattooID == id);
+
+            foreach (var item in _context.Otters)
+            {
+                if (item.MotherId == Otter.TattooID)
+                {
+                    Alert = $"Chystáte se smazat matku vydry: {item.Name}.";
+                }
+            }
+
             return Page();
         }
 
@@ -57,7 +68,8 @@ namespace Database01.Pages
             }
             else
             {
-                return RedirectToPage("./Denied");
+                Denied = "Pouze nálezce může vydru smazat.";
+                return Page();
             }
         }
     }

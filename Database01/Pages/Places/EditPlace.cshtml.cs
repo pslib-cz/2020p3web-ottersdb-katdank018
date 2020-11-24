@@ -31,7 +31,14 @@ namespace Database01.Pages
             Locations = new List<SelectListItem>();
             foreach (var item in _context.Locations)
             {
-                Locations.Add(new SelectListItem($"{item.Name}", $"{item.LocationID}"));
+                if (place.LocationId == item.LocationID)
+                {
+                    Locations.Add(new SelectListItem($"{item.Name}", $"{item.LocationID}", selected:true));
+                }
+                else
+                {
+                    Locations.Add(new SelectListItem($"{item.Name}", $"{item.LocationID}"));
+                }
             }
             return Page();
         }
@@ -57,7 +64,7 @@ namespace Database01.Pages
             _context.Places.Add(NewPlace);
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("./PlacesIndex");
+            return RedirectToPage("../PlacesIndex");
         }
     }
 }

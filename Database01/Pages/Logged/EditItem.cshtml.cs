@@ -26,6 +26,8 @@ namespace Database01.Pages
         public Otter otter { get; set; }
         [BindProperty]
         public Place Place { get; set; }
+        [BindProperty]
+        public string NewPlace { get; set; }
 
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -48,7 +50,7 @@ namespace Database01.Pages
 
             PlaceNames = new List<SelectListItem>();
             Mothers = new List<SelectListItem>();
-            Mothers.Add(new SelectListItem("", null));
+            Mothers.Add(new SelectListItem("Neznámá", null));
             foreach (var item in _context.Places.Include(l => l.Location).AsEnumerable<Place>())
             {
                 if (otter.PlaceName == item.Name && otter.LocationId == item.LocationId)
@@ -63,13 +65,16 @@ namespace Database01.Pages
 
             foreach (var item in _context.Otters.Include(l => l.Mother).AsEnumerable<Otter>())
             {
-                if (otter.Mother?.TattooID == item.TattooID)
+                if (otter.TattooID != item.TattooID)
                 {
-                    Mothers.Add(new SelectListItem($"{item.Name}", $"{item.TattooID}", selected:true));
-                }
-                else
-                {
-                    Mothers.Add(new SelectListItem($"{item.Name}", $"{item.TattooID}", selected: false));
+                    if (otter.Mother?.TattooID == item.TattooID)
+                    {
+                        Mothers.Add(new SelectListItem($"{item.Name}", $"{item.TattooID}", selected: true));
+                    }
+                    else
+                    {
+                        Mothers.Add(new SelectListItem($"{item.Name}", $"{item.TattooID}", selected: false));
+                    }
                 }
 
             }
@@ -82,9 +87,10 @@ namespace Database01.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             string[] data;
-            data = otter.PlaceName.Split(';');
+            data = NewPlace.Split(';');
             otter.LocationId = int.Parse(data[0]);
             otter.PlaceName = data[1];
+           
             _context.Attach(otter).State = EntityState.Modified;
 
             try

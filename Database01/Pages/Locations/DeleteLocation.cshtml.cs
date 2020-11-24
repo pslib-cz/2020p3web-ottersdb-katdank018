@@ -20,6 +20,7 @@ namespace Database01.Pages
 
         [BindProperty]
         public Location location { get; set; }
+        public string Denied { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,12 +34,13 @@ namespace Database01.Pages
             {
                 if (item.LocationId == location.LocationID)
                 {
-                    return RedirectToPage("../Logged/Denied");
+                    Denied = "V této lokaci žije nějaká vydra.";
+                    return Page();
                 }
             }
             _context.Locations.Remove(location);
             await _context.SaveChangesAsync();
-            return RedirectToPage("./LocationIndex");
+            return RedirectToPage("../LocationIndex");
 
         }
     }

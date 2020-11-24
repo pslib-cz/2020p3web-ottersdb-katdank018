@@ -43,7 +43,8 @@ namespace Database01
 
             services.AddRazorPages(options => {
                 options.Conventions.AuthorizeFolder("/Manage");
-                options.Conventions.AuthorizePage("/Index");
+                options.Conventions.AuthorizeFolder("/Locations");
+                options.Conventions.AuthorizeFolder("/Places");
                 options.Conventions.AuthorizeFolder("/Logged");
             });
             services.AddScoped<IEmailSender, EmailSender>();

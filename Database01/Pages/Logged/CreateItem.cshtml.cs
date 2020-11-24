@@ -38,7 +38,7 @@ namespace Database01.Pages
 
             PlaceNames = new List<SelectListItem>();
             Mothers = new List<SelectListItem>();
-            Mothers.Add(new SelectListItem("",null));
+            Mothers.Add(new SelectListItem("Neznámá",null));
             foreach (var item in _context.Places.Include(l => l.Location).AsEnumerable<Place>())
             {
                 PlaceNames.Add(new SelectListItem($"{item.Name} ({item.Location.Name})",$"{item.LocationId};{item.Name}"));

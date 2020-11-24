@@ -4,36 +4,48 @@
 @{
     ViewData["Title"] = "DeleteItem";
 }
-<h3>Opravdu chcete smazat tuto vydru?</h3>
-<div>
-    <hr />
-    <div class="row">
-        <dl class="col-sm-2 odsaz">
-            <dt>Jméno</dt>
-            <dt>Barva</dt>
-            <dt>Matka</dt>
-            <dt>Místo</dt>
-            <dt>Nálezce</dt>
-        </dl>
-        <dl class="col-sm-10">
-            <dd>@Model.Otter.Name</dd>
-            <dd>@Model.Otter.Color</dd>
-            <dd>@(Model.Otter.Mother?.Name ?? "Neznámá")</dd>
-            <dd>@Model.Otter.Place.Name (@Model.Otter.Place.Location.Name)</dd>
-            @if (Model.Otter.Founder == null)
-            {
-                <dd>Neznámý</dd>
-            }
-            else
-            {
-                <dd>@Model.Otter.Founder</dd>
-            }
-        </dl>
-    </div>
+@if (Model.Denied != null)
+{
+    <p class="alert alert-danger text-center"><strong>@Model.Denied</strong></p>
+    <a asp-page="../Index">Zpět na výpis</a>
+}
+else
+{
+    <h3>Opravdu chcete smazat tuto vydru?</h3>
+    @if (Model.Alert != null)
+    {
+        <p class="alert alert-warning text-center"><strong>@Model.Alert</strong></p>
+    }
+    <div>
+        <hr />
+        <div class="row">
+            <dl class="col-sm-2 odsaz">
+                <dt>Jméno</dt>
+                <dt>Barva</dt>
+                <dt>Matka</dt>
+                <dt>Místo</dt>
+                <dt>Nálezce</dt>
+            </dl>
+            <dl class="col-sm-10">
+                <dd>@Model.Otter.Name</dd>
+                <dd>@Model.Otter.Color</dd>
+                <dd>@(Model.Otter.Mother?.Name ?? "Neznámá")</dd>
+                <dd>@Model.Otter.Place.Name (@Model.Otter.Place.Location.Name)</dd>
+                @if (Model.Otter.Founder == null)
+                {
+                    <dd>Neznámý</dd>
+                }
+                else
+                {
+                    <dd>@Model.Otter.Founder</dd>
+                }
+            </dl>
+        </div>
 
-    <form method="post">
-        <input type="hidden" asp-for="Otter.TattooID" />
-        <input type="submit" value="Smazat" class="btn btn-danger" /> |
-        <a asp-page="../Index">Zpět na výpis</a>
-    </form>
-</div>
+        <form method="post">
+            <input type="hidden" asp-for="Otter.TattooID" />
+            <input type="submit" value="Smazat" class="btn btn-danger" /> |
+            <a asp-page="../Index">Zpět na výpis</a>
+        </form>
+    </div>
+}
