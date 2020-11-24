@@ -33,8 +33,8 @@ namespace Database01
                     Configuration.GetConnectionString("OtterDbContext")));
             services.AddDefaultIdentity<IdentityUser>(options =>
             {
-                options.SignIn.RequireConfirmedEmail = false;
-                options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedAccount = true;
                 options.Password.RequiredLength = 2;
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
