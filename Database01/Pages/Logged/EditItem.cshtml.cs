@@ -51,11 +51,27 @@ namespace Database01.Pages
             Mothers.Add(new SelectListItem("", null));
             foreach (var item in _context.Places.Include(l => l.Location).AsEnumerable<Place>())
             {
-                PlaceNames.Add(new SelectListItem($"{item.Name} ({item.Location.Name})", $"{item.LocationId};{item.Name}"));
+                if (otter.PlaceName == item.Name && otter.LocationId == item.LocationId)
+                {
+                    PlaceNames.Add(new SelectListItem($"{item.Name} ({item.Location.Name})", $"{item.LocationId};{item.Name}", selected: true));
+                }
+                else
+                {
+                    PlaceNames.Add(new SelectListItem($"{item.Name} ({item.Location.Name})", $"{item.LocationId};{item.Name}"));
+                }
             }
+
             foreach (var item in _context.Otters.Include(l => l.Mother).AsEnumerable<Otter>())
             {
-                Mothers.Add(new SelectListItem($"{item.Name}", $"{item.TattooID}"));
+                if (otter.Mother?.TattooID == item.TattooID)
+                {
+                    Mothers.Add(new SelectListItem($"{item.Name}", $"{item.TattooID}", selected:true));
+                }
+                else
+                {
+                    Mothers.Add(new SelectListItem($"{item.Name}", $"{item.TattooID}", selected: false));
+                }
+
             }
             return Page();
         }
