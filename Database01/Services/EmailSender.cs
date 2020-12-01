@@ -1,17 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
-using MimeKit;
-using MailKit.Net.Smtp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using MailKit.Security;
-using System.Threading;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Util.Store;
-using Google.Apis.Util;
+using Microsoft.Identity.Client;
+using Microsoft.Graph.Auth;
+using Microsoft.Graph;
 
 namespace Database01.Services
 {
@@ -25,52 +19,42 @@ namespace Database01.Services
 
         public async Task SendEmailAsync(string email, string subject, string text)
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(_configuration["EmailSender:FromName"], _configuration["EmailSender:From"]));
-            message.To.Add(MailboxAddress.Parse(email));
-            message.Subject = subject;
-
-            var bodyBuilder = new BodyBuilder()
+            /* create message header + body */
+            var message = new Message
             {
-                TextBody = text,
-                HtmlBody = text
+                Subject = subject,
+                Body = new ItemBody
+                {
+                    ContentType = BodyType.Html,
+                    Content = text
+                },
+                ToRecipients = new List<Recipient>()
+                {
+                    new Recipient { EmailAddress = new EmailAddress { Address = email } }
+                }
             };
 
-            message.Body = bodyBuilder.ToMessageBody();
+            /* make MS Graph API connection */
+            string[] scopes = new string[] { "https://graph.microsoft.com/.default" };
 
-            string gMailAccount = _configuration["EmailSender:AccountID"];
+            IConfidentialClientApplication confidentialClientApplication = ConfidentialClientApplicationBuilder
+                .Create(_configuration["EmailSender:ClientId"])
+                .WithTenantId(_configuration["EmailSender:TenantId"])
+                .WithClientSecret(_configuration["EmailSender:ClientSecret"])
+                .Build();
 
-            var clientSecrets = new ClientSecrets()
-            {
-                ClientId = _configuration["EmailSender:ClientID"],
-                ClientSecret = _configuration["EmailSender:ClientSecret"]
-            };
+            await confidentialClientApplication.AcquireTokenForClient(scopes)
+                .ExecuteAsync()
+                .ConfigureAwait(false);
 
-            var codeFlow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer()
-            {
-                DataStore = new FileDataStore("CredentialCacheFolder", false),
-                Scopes = new[] { "https://mail.google.com/" },
-                ClientSecrets = clientSecrets
-            });
+            var authProvider = new ClientCredentialProvider(confidentialClientApplication);
+            var graphClient = new GraphServiceClient(authProvider);
 
-            var codeReceiver = new LocalServerCodeReceiver();
-            var authCode = new AuthorizationCodeInstalledApp(codeFlow, codeReceiver);
-
-            var credential = await authCode.AuthorizeAsync(gMailAccount, CancellationToken.None);
-
-            if (credential.Token.IsExpired(SystemClock.Default))
-                await credential.RefreshTokenAsync(CancellationToken.None);
-
-            var oauth2 = new SaslMechanismOAuth2(credential.UserId, credential.Token.AccessToken);
-
-            Int32.TryParse(_configuration["EmailSender:Port"], out int port);
-            using (var client = new SmtpClient())
-            {
-                await client.ConnectAsync(_configuration["EmailSender:Server"], port, SecureSocketOptions.StartTlsWhenAvailable);
-                await client.AuthenticateAsync(oauth2);
-                await client.SendAsync(message);
-                await client.DisconnectAsync(true);
-            }
+            /* send email over Grap API Mail.Send */
+            await graphClient.Users[_configuration["EmailSender:UserId"]]
+                .SendMail(message, false)
+                .Request()
+                .PostAsync();
         }
     }
 }
