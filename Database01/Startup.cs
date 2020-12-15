@@ -41,6 +41,12 @@ namespace Database01
                 options.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<OtterDbContext>();
 
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Facebook:fbId"];
+                facebookOptions.AppSecret = Configuration["Facebook:fbSecret"];
+            });
+
             services.AddRazorPages(options => {
                 options.Conventions.AuthorizeFolder("/Manage");
                 options.Conventions.AuthorizeFolder("/Locations");
